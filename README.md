@@ -13,8 +13,8 @@ by definition, when a higher-ranked player wins the match against a lower-ranked
   - Name of the ATP Series (Grand Slam, Masters 1000, ATP 250 and ATP 500) 
   - Difference between the logarithms of the rankings (instead of just difference between rankings) to take into account the
  non-linearity of the players quality 
-  - The following models were used:
-    - Logistic regression
-    - Decision trees
-    - Random forests
-- The accuracy was measured using standard techniques. For games of 5 sets, the ROC curve was found to have an AUC of around 0.7.
+ - The following models were used:
+   - Logistic regression
+   - Decision trees
+   - Random forests
+   - The accuracy was measured using standard techniques. For games of 5 sets, the ROC curve was found to have an AUC of around 0.7.
