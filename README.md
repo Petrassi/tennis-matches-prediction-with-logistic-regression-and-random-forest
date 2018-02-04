@@ -17,4 +17,4 @@ by definition, when a higher-ranked player wins the match against a lower-ranked
    - Logistic regression
    - Decision trees
    - Random forests
-   - The accuracy was measured using standard techniques. For games of 5 sets, the ROC curve was found to have an AUC of around 0.7.
+- The accuracy was measured using standard techniques. For games of 5 sets, the ROC curve was found to have an AUC of around 0.7.
