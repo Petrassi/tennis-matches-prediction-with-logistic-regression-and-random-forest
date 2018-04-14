@@ -1,4 +1,30 @@
-# "Forecasting the winner of tennis matches in the Men's ATP World Tour"
+# "Forecasting the winner of tennis matches in the Men's ATP World Tour"  ![image title](https://img.shields.io/badge/work-in%20progress-blue.svg)
+
+<br>
+
+<p align="center">
+  <img src="ATP_World_Tour.png" 
+       width="200" height="200">
+</p>                                   
+                                 
+<br> 
+
+</p>
+<br>
+<p align="center">
+  <a href="#Problem Statement"> Problem Statement </a> •
+  <a href="#Dataset"> Dataset </a> •
+  <a href="#Importing basic modules"> Importing basic modules</a> •
+  <a href="#Pre-Processing of dataset"> Pre-Processing of dataset</a><br> 
+  <a href="#`Best_of` = 5"> `Best_of` = 5</a> •
+  <a href="#Dummy variables">Dummy variables</a> •
+  <a href="#Exploratory Analysis for Best_of = 5">Exploratory Analysis for Best_of = 5</a>
+  <a href="#Model 1: Logistic Regression">Model 1: Logistic Regression</a> 
+  <a href="#Models 2 and 3: Decision Trees and Random Forests">Models 2 and 3: Decision Trees and Random Forests</a> 
+</p>
+
+
+
 
 ## Problem Statement
 
@@ -148,7 +174,6 @@ dummy_ranks = pd.get_dummies(df1['Round'], prefix='Round')
 df1 = df1.join(dummy_ranks.ix[:, 'Round_2':])
 df1[['Round_2', 'Round_3',
        'Round_4', 'Round_5', 'Round_6', 'Round_7']] = df1[['Round_2', 'Round_3','Round_4', 'Round_5', 'Round_6', 'Round_7']].astype('int_')
-df1.head()
 ```
 We repeat this for the `Surface` variable
 
@@ -218,15 +243,14 @@ plt.ylabel('True Positive Rate (Sensitivity)')
 plt.legend(loc="lower right")
 plt.grid(True)
 ```
-
 <br>
 
 <p align="center">
   <img src="ROC.png" 
        width="400" height="300">
-</p>                                   
-                                 
+</p>                                                                
 <br> 
+
 Using `statsmodels` I obtain:
 ```
 import statsmodels.api as sm
@@ -255,7 +279,7 @@ plt.grid(True)
 ```
 
 ## Models 2 and 3: Decision Trees and Random Forests
--------
+
 
 I now build a decision tree model to predict the upsets likelihood of a given match:
 
