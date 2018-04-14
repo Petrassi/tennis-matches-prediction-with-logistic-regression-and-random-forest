@@ -19,8 +19,8 @@
   <a href="#`Best_of` = 5"> `Best_of` = 5</a> •
   <a href="#Dummy variables">Dummy variables</a> •
   <a href="#Exploratory Analysis for Best_of = 5">Exploratory Analysis for Best_of = 5</a>
-  <a href="#Model 1: Logistic Regression">Model 1: Logistic Regression</a> 
-  <a href="#Models 2 and 3: Decision Trees and Random Forests">Models 2 and 3: Decision Trees and Random Forests</a> 
+  <a href="#Logistic Regression">Logistic Regression</a> 
+  <a href="#Decision Trees and Random Forests">Decision Trees and Random Forests</a> 
 </p>
 
 
@@ -193,7 +193,7 @@ df4['D'] = df4['P1'] - df4['P2']
 df4['D'] = np.absolute(df4['D'])
 ```
 
-## Model 1: Logistic Regression
+## Logistic Regression
 
 I now use a logistic regression to study our data.
 
@@ -278,7 +278,7 @@ plt.legend(loc="lower right")
 plt.grid(True)
 ```
 
-## Models 2 and 3: Decision Trees and Random Forests
+## Decision Trees and Random Forests
 
 
 I now build a decision tree model to predict the upsets likelihood of a given match:
