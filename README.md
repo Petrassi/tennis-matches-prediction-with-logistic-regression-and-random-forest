@@ -218,6 +218,15 @@ plt.ylabel('True Positive Rate (Sensitivity)')
 plt.legend(loc="lower right")
 plt.grid(True)
 ```
+
+<br>
+
+<p align="center">
+  <img src="ROC.png" 
+       width="400" height="300">
+</p>                                   
+                                 
+<br> 
 Using `statsmodels` I obtain:
 ```
 import statsmodels.api as sm
