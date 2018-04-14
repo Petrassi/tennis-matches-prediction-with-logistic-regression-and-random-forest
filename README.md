@@ -25,11 +25,11 @@
 
 
 
-
+<a id = 'Problem Statement'></a>
 ## Problem Statement
 
 The goal of the project is to predict the probability that the higher-ranked player will win a tennis match. I will call that a `win`(as opposed to an upset). 
-
+<a id = 'Dataset'></a>
 ## Dataset
 
 Results for the men's ATP tour date back to January 2000 from the dateset http://www.tennis-data.co.uk/data.php (obtained from Kaggle). The features for each match that were used in the project were:
@@ -42,7 +42,7 @@ Results for the men's ATP tour date back to January 2000 from the dateset http:/
 - `LRank`: ATP Entry ranking of the match loser as of the start of the tournament
 
 The output variable is binary. The better player has higher rank by definition. The `win` variable is 1 if the higher-ranked player wins and 0 otherwise.
-
+<a id = 'Importing basic modules'></a>
 ## Importing basic modules
 
 ```
@@ -55,7 +55,7 @@ sns.set_style("darkgrid")
 import pylab as pl
 %matplotlib inline
 ```
-
+<a id = 'Pre-Processing of dataset'></a>
 ## Pre-Processing of dataset
 
 After loading the dataset we proceed as following:
@@ -128,6 +128,7 @@ df = X_strat_1.copy()
 df["P1"] = df[["WRank", "LRank"]].max(axis=1)
 df["P2"] = df[["WRank", "LRank"]].min(axis=1)
 ```
+<a id = 'Exploratory Analysis for Best_of = 5'></a>
 ## Exploratory Analysis for Best_of = 5
 
 I first look at percentage of wins for each surface. We find that when the `Surface` is Clay there is a higher likelihood of upsets (opposite of wins) i.e. the percentage of wins is lower. The difference is not too large tough.
@@ -149,6 +150,7 @@ win_by_round.columns = ["Round", "win", "total" ]
 fig2 = sns.barplot(win_by_round.Round, win_by_round.total, hue = win_by_round.win )
 fig2.figure.set_size_inches(8,5)
 ```
+<a id = 'Dummy variables'></a>
 ## Dummy variables
 To keep the dataframe cleaner we transform the `Round` entries into numbers. We then transform rounds into dummy variables
 
@@ -184,7 +186,7 @@ df_2.drop("Surface",axis = 1,inplace=True)
 df_2[['Surface_Grass','Surface_Hard']] = df_2[['Surface_Grass','Surface_Hard']].astype('int_')
 df_2.drop("Round",axis = 1,inplace=True)
 ```
-I now take the logarithms of ${\cal P}_1$ and ${\cal P}_2$, then create a variable `D` 
+I now take the logarithms of `P1` and `P2`, then create a variable `D` 
 ```
 df4 = df_2.copy()
 df4['P1'] = np.log2(df4['P1'].astype('float64')) 
@@ -192,7 +194,7 @@ df4['P2'] = np.log2(df4['P2'].astype('float64'))
 df4['D'] = df4['P1'] - df4['P2']
 df4['D'] = np.absolute(df4['D'])
 ```
-
+<a id = 'Logistic Regression'></a>
 ## Logistic Regression
 
 I now use a logistic regression to study our data.
@@ -277,7 +279,7 @@ plt.ylabel('Win Probability for 5 sets matches')
 plt.legend(loc="lower right")
 plt.grid(True)
 ```
-
+<a id = 'Decision Trees and Random Forests'></a>
 ## Decision Trees and Random Forests
 
 
