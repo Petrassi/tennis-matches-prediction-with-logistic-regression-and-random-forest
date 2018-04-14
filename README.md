@@ -18,8 +18,8 @@
   <a href="#Pre-Processing of dataset"> Pre-Processing of dataset</a><br> 
   <a href="#`Best_of` = 5"> `Best_of` = 5</a> •
   <a href="#Dummy variables">Dummy variables</a> •
-  <a href="#Exploratory Analysis for Best_of = 5">Exploratory Analysis for Best_of = 5</a>
-  <a href="#Logistic Regression">Logistic Regression</a> 
+  <a href="#Exploratory Analysis for Best_of = 5">Exploratory Analysis for Best_of = 5</a> •
+  <a href="#Logistic Regression">Logistic Regression</a> •
   <a href="#Decision Trees and Random Forests">Decision Trees and Random Forests</a> 
 </p>
 
