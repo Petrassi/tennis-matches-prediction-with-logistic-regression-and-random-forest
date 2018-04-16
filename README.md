@@ -98,6 +98,18 @@ Following Corral and Prieto-Rodriguez (2010) we restrict the analysis to higher 
 ```
 df_new = df_atp[(df_atp['WRank'] <= 150) & (df_atp['LRank'] <= 150)]
 ```
+
+
+
+<br>
+
+<p align="center">
+  <img src="tennis_df.png">
+</p>                                   
+                                 
+<br> 
+
+
 ##  `Best_of` = 5
 
 We now restrict our analysis to matches of Best_of = 5. Since only Grand Slams have 5 sets we can drop the new `Series` column. The case of `Best_of = 3` will be considered afterwards.
