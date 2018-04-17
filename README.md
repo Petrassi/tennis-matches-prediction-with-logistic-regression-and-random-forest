@@ -312,6 +312,18 @@ model = DecisionTreeClassifier(
                 min_samples_leaf = 6)
 
 model.fit(X, y)
+```
+<br>
+
+<p align="center">
+  <img src="decisiontree.png">
+</p>                                   
+                                 
+<br>
+
+Evaluating the cross-validation score:
+
+```
 scores = cross_val_score(model, X, y, scoring='roc_auc', cv=5)
 print('CV AUC {}, Average AUC {}'.format(scores, scores.mean()))
 ```
