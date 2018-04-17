@@ -127,10 +127,7 @@ series_to_df(df3['win'].value_counts()/df3.shape[0])
   <img src="imbalance.png">
 </p>
 
-
-
-
-To correct this problem, and create a balanced dataset, I used a stratified sampling procedure. 
+To correct this problem, and create a balanced dataset via simple undersampling, I used a stratified sampling procedure. 
 
 ```
 y_0 = df3[df3.win == 0] 
@@ -144,12 +141,19 @@ y_strat = df_strat.win
 X_strat_1=X_strat.copy()
 X_strat_1['win']=y_strat
 ```
+The balanced classes become:
+
+<p align="center">
+  <img src="balanced.png">
+</p>
+
 We now define the variables `P1` and `P2` where the former has higher ranking:
 ```
 df = X_strat_1.copy()
 df["P1"] = df[["WRank", "LRank"]].max(axis=1)
 df["P2"] = df[["WRank", "LRank"]].min(axis=1)
 ```
+
 <a id = 'Exploratory Analysis for Best_of = 5'></a>
 ## Exploratory Analysis for Best_of = 5
 
