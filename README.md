@@ -104,6 +104,7 @@ df_new = df_atp[(df_atp['WRank'] <= 150) & (df_atp['LRank'] <= 150)]
 </p>                                   
                                  
 <br> 
+
 ##  `Best_of` = 5
 
 We now restrict our analysis to matches of `Best_of` = 5. Since only Grand Slams have 5 sets we can drop the `Series` column. The case of `Best_of = 3` will be considered afterwards.
@@ -138,8 +139,8 @@ y_1 = y_1.sample(n = n, random_state = 0)
 df_strat = pd.concat([y_0, y_1]) 
 X_strat = df_strat[['Date', 'Surface', 'Round','WRank', 'LRank']]
 y_strat = df_strat.win
-X_strat_1=X_strat.copy()
-X_strat_1['win']=y_strat
+df = X_strat.copy()
+df['win'] = y_strat
 ```
 The balanced classes become:
 
@@ -149,23 +150,30 @@ The balanced classes become:
 
 We now define the variables `P1` and `P2` where the former has higher ranking:
 ```
-df = X_strat_1.copy()
-df["P1"] = df[["WRank", "LRank"]].max(axis=1)
-df["P2"] = df[["WRank", "LRank"]].min(axis=1)
+ranks = ["WRank", "LRank"]
+df["P1"] = df[ranks].max(axis=1)
+df["P2"] = df[ranks].min(axis=1)
 ```
 
 <a id = 'Exploratory Analysis for Best_of = 5'></a>
 ## Exploratory Analysis for Best_of = 5
 
 I first look at percentage of wins for each surface. We find that when the `Surface` is Clay there is a higher likelihood of upsets (opposite of wins) i.e. the percentage of wins is lower. The difference is not too large tough.
+```
+win_by_Surface = pd.crosstab(df.win, df.Surface).apply(lambda x: x/x.sum(), axis = 0)
+```
+
+<p align="center">
+  <img src="surfaces.png">
+</p>
 
 ```
-win_by_Surface = pd.crosstab(df.win, df.Surface).apply( lambda x: x/x.sum(), axis = 0 )
-win_by_Surface = pd.DataFrame( win_by_Surface.unstack() ).reset_index()
-win_by_Surface.columns = ["Surface", "win", "total" ]
+win_by_Surface = pd.DataFrame(win_by_Surface.unstack()).reset_index()
+win_by_Surface.columns = ["Surface", "win", "total"]
 fig2 = sns.barplot(win_by_Surface.Surface, win_by_Surface.total, hue = win_by_Surface.win )
 fig2.figure.set_size_inches(8,5)
 ```
+The figure below shows
 
 What about the dependence on rounds? The relation is not very clear but we can clearly see that upsets are unlikely to happen on the semifinals.
 
