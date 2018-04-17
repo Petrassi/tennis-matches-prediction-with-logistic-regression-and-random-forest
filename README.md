@@ -286,16 +286,6 @@ from sklearn.cross_validation import cross_val_score
 cross_val_score(logreg, X, y, cv=10, scoring='roc_auc').mean()
 ``` 
 
-```
-logreg.fit(dfnew[["D"]],dfnew["win"])
-pred_probs = logreg.predict_proba(dfnew[["D"]])
-plt.scatter(dfnew["D"], pred_probs[:,1])
-plt.title('Win Probability for 5 sets matches')
-plt.xlabel('D')
-plt.ylabel('Win Probability for 5 sets matches')
-plt.legend(loc="lower right")
-plt.grid(True)
-```
 <a id = 'Decision Trees and Random Forests'></a>
 ## Decision Trees and Random Forests
 
