@@ -283,8 +283,12 @@ plt.grid(True)
 Now we must perform cross-validation. 
 ```
 from sklearn.cross_validation import cross_val_score
-cross_val_score(logreg, X, y, cv=10, scoring='roc_auc').mean()
+print('Mean CV score is:',cross_val_score(logreg, X, y, cv=10, scoring='roc_auc').mean())
 ``` 
+The output is:
+```
+Mean CV score is: 0.7287617728531856
+```
 
 <a id = 'Decision Trees and Random Forests'></a>
 ## Decision Trees and Random Forests
