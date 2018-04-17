@@ -280,17 +280,7 @@ plt.grid(True)
 </p>                                                                
 <br> 
 
-Using `statsmodels` I obtain:
-```
-import statsmodels.api as sm
-X = dfnew[feature_cols]
-X = sm.add_constant(X)
-y = dfnew['win']
-lm = sm.Logit(y, X)
-result = lm.fit()
-```
-Now performing cross-validation:
-
+Now we must perform cross-validation. 
 ```
 from sklearn.cross_validation import cross_val_score
 cross_val_score(logreg, X, y, cv=10, scoring='roc_auc').mean()
