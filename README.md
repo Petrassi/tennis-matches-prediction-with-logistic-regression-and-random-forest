@@ -5,14 +5,8 @@
 <br>
 
 <p align="center">
-  <img src="ATP_World_Tour.png" 
-       width="200" height="200">
-</p>                                   
-                                 
-<br> 
-
-</p>
-<br>
+  <img src="ATP_World_Tour.png">
+</p>                                                                  
 <p align="center">
   <a href="#Problem Statement"> Problem Statement </a> •
   <a href="#Dataset"> Dataset </a> •
@@ -24,8 +18,6 @@
   <a href="#Logistic Regression">Logistic Regression</a> •
   <a href="#Decision Trees and Random Forests">Decision Trees and Random Forests</a> 
 </p>
-
-
 
 <a id = 'Problem Statement'></a>
 ## Problem Statement
@@ -84,9 +76,10 @@ df_atp = df_atp[(df_atp['LRank'] != 'NR') & (df_atp['WRank'] != 'NR') & (df_atp[
 ```
 Another important step for some of the columns is to transform strings into numerical values:
 ```
-df_atp[['Best_of','WRank','LRank']] = df_atp[['Best_of','WRank','LRank']].astype(int)
+cols_to_keep = ['Best_of','WRank','LRank']
+df_atp[cols_to_keep] = df_atp[cols_to_keep].astype(int)
 ```
-I now create an extra columns for the variable `win` described above using an auxiliary function `win(x)` and using `apply( )`:
+I now create an extra column for the variable `win` (described above) using an auxiliary function `win(x)`:
 
 ```
 def win(x):
@@ -94,15 +87,17 @@ def win(x):
         return 0
     elif x <= 0:
         return 1  
+```
+Using the `apply( )` method which sends a column to a function:
+```
 df_atp['win'] = (df_atp['WRank'] - df_atp['LRank']).apply(win)
 ```
-Following Corral and Prieto-Rodriguez (2010) we restrict the analysis to higher ranked players (the analysis including all players has indeed less predictive power as we tested)
+
+
+Following [Corral and Prieto-Rodriguez](https://ideas.repec.org/a/eee/intfor/v26yi3p551-563.html) we restrict the analysis to higher ranked players:
 ```
 df_new = df_atp[(df_atp['WRank'] <= 150) & (df_atp['LRank'] <= 150)]
 ```
-
-
-
 <br>
 
 <p align="center">
@@ -110,8 +105,6 @@ df_new = df_atp[(df_atp['WRank'] <= 150) & (df_atp['LRank'] <= 150)]
 </p>                                   
                                  
 <br> 
-
-
 ##  `Best_of` = 5
 
 We now restrict our analysis to matches of Best_of = 5. Since only Grand Slams have 5 sets we can drop the new `Series` column. The case of `Best_of = 3` will be considered afterwards.
@@ -122,7 +115,14 @@ df3 = df3[df3['Best_of'] == 5]
 df3.drop(["Series",axis = 1,inplace=True)
 df3.drop("Best_of",axis = 1,inplace=True)
 ```
-Notice that the dataset is uneven in terms of frequency of `wins`(imbalanced classes). To correct this problem, and create a balanced dataset, I used a stratified sampling procedure. 
+The dataset is uneven in terms of frequency of `wins`(imbalanced classes). Using this quick function to convert `Series` to `DataFrame` (for aesthetic reasons only!)
+```
+def series_to_df(s):
+    return s.to_frame()
+series_to_df(df3['win'].value_counts())
+series_to_df(df3['win'].value_counts()/df3.shape[0])
+```
+To correct this problem, and create a balanced dataset, I used a stratified sampling procedure. 
 
 ```
 y_0 = df3[df3.win == 0] 
