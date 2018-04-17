@@ -362,4 +362,15 @@ for n_trees in range(1, 100, 10):
     scores = cross_val_score(model, X, y, scoring='roc_auc')
     print('n trees: {}, CV AUC {}, Average AUC {}'.format(n_trees, scores, scores.mean()))
 ```
+<br>
+
+<p align="center">
+  <img src="rf_features.png",width="280" height="280">
+</p>                                   
+                                 
+<br>
+
+
+
+
 The same identical analysis is done for `Best_of = 3` and therefore it is ommited here in the README. 
