@@ -93,7 +93,6 @@ Using the `apply( )` method which sends a column to a function:
 df_atp['win'] = (df_atp['WRank'] - df_atp['LRank']).apply(win)
 ```
 
-
 Following [Corral and Prieto-Rodriguez](https://ideas.repec.org/a/eee/intfor/v26yi3p551-563.html) we restrict the analysis to higher ranked players:
 ```
 df_new = df_atp[(df_atp['WRank'] <= 150) & (df_atp['LRank'] <= 150)]
@@ -107,7 +106,7 @@ df_new = df_atp[(df_atp['WRank'] <= 150) & (df_atp['LRank'] <= 150)]
 <br> 
 ##  `Best_of` = 5
 
-We now restrict our analysis to matches of Best_of = 5. Since only Grand Slams have 5 sets we can drop the new `Series` column. The case of `Best_of = 3` will be considered afterwards.
+We now restrict our analysis to matches of `Best_of` = 5. Since only Grand Slams have 5 sets we can drop the `Series` column. The case of `Best_of = 3` will be considered afterwards.
 ```
 df3 = df_new.copy()
 df3 = df3[df3['Best_of'] == 5]
@@ -122,6 +121,15 @@ def series_to_df(s):
 series_to_df(df3['win'].value_counts())
 series_to_df(df3['win'].value_counts()/df3.shape[0])
 ```
+<br>
+
+<p align="center">
+  <img src="imbalance.png">
+</p>
+
+
+
+
 To correct this problem, and create a balanced dataset, I used a stratified sampling procedure. 
 
 ```
