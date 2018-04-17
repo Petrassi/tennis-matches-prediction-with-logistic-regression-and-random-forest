@@ -285,7 +285,13 @@ Now we must perform cross-validation.
 from sklearn.cross_validation import cross_val_score
 cross_val_score(logreg, X, y, cv=10, scoring='roc_auc').mean()
 ```
+<br>
 
+<p align="center">
+  <img src="cv_score.png",width="40">
+</p>                                   
+                                 
+<br> 
 ```
 logreg.fit(dfnew[["D"]],dfnew["win"])
 pred_probs = logreg.predict_proba(dfnew[["D"]])
