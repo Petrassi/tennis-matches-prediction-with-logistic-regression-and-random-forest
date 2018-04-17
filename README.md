@@ -241,20 +241,26 @@ logreg.fit(X_train, y_train)
 and make predictions using the test set:
 ```
 y_pred_class = logreg.predict(X_test)
-```
- 
-The next step is evaluate the appropriate metrics. Using `scikit-learn` I get:
-```
 from sklearn import metrics
-print(metrics.accuracy_score(y_test, y_pred_class))
-print('True:', y_test.values[0:40])
-print('Pred:', y_pred_class[0:40])
+print('Accuracy score is:',metrics.accuracy_score(y_test, y_pred_class))
+```
+and obtain:
+```
+Accuracy score is: 0.7070707070707071
+```
+
+The next step is evaluate the appropriate metrics. Using `scikit-learn` for calcule the AUC,
+```
 y_pred_prob = logreg.predict_proba(X_test)[:, 1]
 auc_score = metrics.roc_auc_score(y_test, y_pred_prob)
-auc_score
-y_pred_prob = logreg.predict_proba(X_test)[:, 1]
-auc_score = metrics.roc_auc_score(y_test, y_pred_prob)
-auc_score
+print('AUC is:', auc_score)
+```
+I obtain the following `auc_score`:
+```
+AUC is: 0.7546938775510204
+```
+To plot the ROC curve I use:
+```
 fpr, tpr, thresholds = metrics.roc_curve(y_test, y_pred_prob)
 fig = plt.plot(fpr, tpr,label='ROC curve (area = %0.2f)' % auc_score )
 plt.plot([0, 1], [0, 1], 'k--')
