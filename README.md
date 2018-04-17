@@ -284,14 +284,8 @@ Now we must perform cross-validation.
 ```
 from sklearn.cross_validation import cross_val_score
 cross_val_score(logreg, X, y, cv=10, scoring='roc_auc').mean()
-```
-<br>
+``` 
 
-<p align="center">
-  <img src="cv_score.png",width="40">
-</p>                                   
-                                 
-<br> 
 ```
 logreg.fit(dfnew[["D"]],dfnew["win"])
 pred_probs = logreg.predict_proba(dfnew[["D"]])
@@ -327,6 +321,19 @@ model.fit(X, y)
 scores = cross_val_score(model, X, y, scoring='roc_auc', cv=5)
 print('CV AUC {}, Average AUC {}'.format(scores, scores.mean()))
 ```
+
+<br>
+
+<p align="center">
+  <img src="cv_score.png",width="250" height="250">
+</p>                                   
+                                 
+<br>
+
+
+
+
+
 Now I repeat the lines above using a random forest classifier:
 ```
 from sklearn.ensemble import RandomForestClassifier
