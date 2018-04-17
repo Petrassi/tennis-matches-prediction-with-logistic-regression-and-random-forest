@@ -167,14 +167,6 @@ win_by_Surface = pd.crosstab(df.win, df.Surface).apply(lambda x: x/x.sum(), axis
   <img src="surfaces.png">
 </p>
 
-```
-win_by_Surface = pd.DataFrame(win_by_Surface.unstack()).reset_index()
-win_by_Surface.columns = ["Surface", "win", "total"]
-fig2 = sns.barplot(win_by_Surface.Surface, win_by_Surface.total, hue = win_by_Surface.win )
-fig2.figure.set_size_inches(8,5)
-```
-The figure below shows
-
 What about the dependence on rounds? The relation is not very clear but we can clearly see that upsets are unlikely to happen on the semifinals.
 
 ```
