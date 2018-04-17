@@ -170,16 +170,17 @@ win_by_Surface = pd.crosstab(df.win, df.Surface).apply(lambda x: x/x.sum(), axis
 What about the dependence on rounds? The relation is not very clear but we can clearly see that upsets are unlikely to happen on the semifinals.
 
 ```
-win_by_round = pd.crosstab(df.win, df.Round).apply( lambda x: x/x.sum(), axis = 0 )
-win_by_round = pd.DataFrame(win_by_round.unstack() ).reset_index()
-win_by_round.columns = ["Round", "win", "total" ]
-fig2 = sns.barplot(win_by_round.Round, win_by_round.total, hue = win_by_round.win )
-fig2.figure.set_size_inches(8,5)
+win_by_round = pd.crosstab(df.win, df.Round).apply(lambda x: x/x.sum(), axis = 0)
 ```
+<p align="center">
+  <img src="rounds.png">
+</p>
+
+
+
 <a id = 'Dummy variables'></a>
 ## Dummy variables
-To keep the dataframe cleaner we transform the `Round` entries into numbers. We then transform rounds into dummy variables
-
+To keep the dataframe cleaner we transform the `Round` entries into numbers using: 
 ```
 df1 = df.copy()
 def round_number(x):
@@ -197,24 +198,18 @@ def round_number(x):
         return 6
     elif x == 'The Final':
         return 7
-df1['Round'] = df1['Round'].apply(round_number)
+df1['Round'] = df1['Round'].apply(round_number)     
+```
+We then transform rounds into dummy variables
+```
 dummy_ranks = pd.get_dummies(df1['Round'], prefix='Round')
 df1 = df1.join(dummy_ranks.ix[:, 'Round_2':])
-df1[['Round_2', 'Round_3',
-       'Round_4', 'Round_5', 'Round_6', 'Round_7']] = df1[['Round_2', 'Round_3','Round_4', 'Round_5', 'Round_6', 'Round_7']].astype('int_')
+rounds = ['Round_2', 'Round_3',
+       'Round_4', 'Round_5', 'Round_6', 'Round_7']
+df1[rounds] = df1[rounds].astype('int_')
 ```
-We repeat this for the `Surface` variable
-
+We repeat this for the `Surface` variable. I now take the logarithms of `P1` and `P2`, then create a variable `D` 
 ```
-dummy_ranks = pd.get_dummies(df1['Surface'], prefix='Surface')
-df_2 = df1.join(dummy_ranks.ix[:, 'Surface_Grass':])
-df_2.drop("Surface",axis = 1,inplace=True)
-df_2[['Surface_Grass','Surface_Hard']] = df_2[['Surface_Grass','Surface_Hard']].astype('int_')
-df_2.drop("Round",axis = 1,inplace=True)
-```
-I now take the logarithms of `P1` and `P2`, then create a variable `D` 
-```
-df4 = df_2.copy()
 df4['P1'] = np.log2(df4['P1'].astype('float64')) 
 df4['P2'] = np.log2(df4['P2'].astype('float64')) 
 df4['D'] = df4['P1'] - df4['P2']
@@ -223,31 +218,31 @@ df4['D'] = np.absolute(df4['D'])
 <a id = 'Logistic Regression'></a>
 ## Logistic Regression
 
-I now use a logistic regression to study our data.
+The next step is building the models. I first use a logistic regression. First, the `y` and `X` must be defined:
 
-```feature_cols = ['Round_2',
- 'Round_3',
- 'Round_4',
- 'Round_5',
- 'Round_6',
- 'Round_7',
- 'Surface_Grass',
- 'Surface_Hard',
- 'D']
+```
+feature_cols = ['Round_2','Round_3','Round_4','Round_5','Round_6','Round_7','Surface_Grass','Surface_Hard','D']
 dfnew = df4.copy()
 dfnew[feature_cols].head()
 X = dfnew[feature_cols]
 y = dfnew.win
 ```
-I then do a train-test split, fit the model with the training data and make predictions using the test set:
+Doing a train-test split:
 ```
 from sklearn.cross_validation import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=0)
+```
+I then fit the model with the training data,
+```
 from sklearn.linear_model import LogisticRegression
 logreg = LogisticRegression()
 logreg.fit(X_train, y_train)
+```
+and make predictions using the test set:
+```
 y_pred_class = logreg.predict(X_test)
 ```
+ 
 The next step is evaluate the appropriate metrics. Using `scikit-learn` I get:
 ```
 from sklearn import metrics
